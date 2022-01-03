@@ -4,6 +4,7 @@ const peer = new Peer(undefined, {
     host: '/',
     port: '3001'
 })
+const PORTP = 3001;
 const myVideo = document.createElement('video')
 myVideo.muted = true
 const peers = {}
@@ -57,3 +58,5 @@ function connectToNewUser(userId,stream){
     
     peers[userId] = call
 }
+
+peer.Listen(process.env.PORTP || PORTP)
