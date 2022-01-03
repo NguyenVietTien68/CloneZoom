@@ -4,6 +4,7 @@ const peer = new Peer(undefined, {
     host: '/',
     port: '3001'
 })
+const {v4 : uuidV4} = require('uuid')
 const PORTP = 3001;
 const myVideo = document.createElement('video')
 myVideo.muted = true
@@ -29,10 +30,10 @@ navigator.mediaDevices.getUserMedia({
 
 })
 
-socket.on('user-disconnected', userId => {
-    if(peers[userId])
-        peers[userId].close()
-})
+// socket.on('user-disconnected', userId => {
+//     if(peers[userId])
+//         peers[userId].close()
+// })
 
 peer.on('open', id =>{
     socket.emit('join-room', ROOM_ID, id)
@@ -52,11 +53,11 @@ function connectToNewUser(userId,stream){
     call.on('stream', userVideoStream =>{
         addVideoStream(v, userVideoStream)
     })
-    call.on('close',() =>{
-        v.remove()
-    })
+    // call.on('close',() =>{
+    //     v.remove()
+    // })
     
-    peers[userId] = call
+    // peers[userId] = call
 }
 
-peer.Listen(process.env.PORTP || PORTP)
+// peer.Listen(process.env.PORTP || PORTP)
